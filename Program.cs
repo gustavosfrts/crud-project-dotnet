@@ -1,4 +1,5 @@
 using estudo_dotnet.Data;
+using estudo_dotnet.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ builder.Services.AddSwaggerGen();
 // Configurando o banco de dados
 var connectionString = builder.Configuration.GetConnectionString("ProductConnection");
 
-builder.Services.AddDbContext<ProductContext>(opts => opts.UseSqlServer(connectionString));
+builder.Services.AddDbContext<EstudoContext>(opts => opts.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
@@ -22,6 +23,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.Seeder();
 }
 
 app.UseHttpsRedirection();
